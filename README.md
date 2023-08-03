@@ -6,10 +6,9 @@ In this Hackathon environment ERD, projects are created and can have multiple me
 
 ![ERD](ERD.png)
 
-
-- Connect to postgres
-- Create the database
-- Create the tables and insert the data
-- Simple queries
-- Delete and update 
-- Create a script
+- Connect to postgres.
+- Create the database.
+- Create the tables and insert the data.
+- Simple queries.
+- Delete and update.
+- Create a script.
