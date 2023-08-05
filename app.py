@@ -99,3 +99,32 @@ def create_project():
    db.session.add(new_project)
    db.session.commit() 
    return project_schema.dump(new_project), 201
+
+@app.delete('/projects/<int:id>')
+def delete_project(id):
+    stmt = db.select(Project).filter_by(id = id)
+    project = db.session.scalar(stmt)
+
+    if project:
+        db.session.delete(project)
+        db.session.commit()
+        return {'message': f"Project {project.title} deleted successfully"}, 202
+    else:
+        return {'error': f"Project not found with id {id}"}, 404
+    
+# @app.put
+@app.route('/projects/<int:id>', methods=["PUT", "PATCH"])
+def update_project(id):
+    stmt = db.select(Project).filter_by(id = id)
+    project = db.session.scalar(stmt)
+
+    if project:
+        project.title = request.json.get("title") or project.title
+        project.repository = request.json.get("repository") or project.repository 
+        project.description = request.json.get("description") or project.description
+
+        db.session.commit()
+        return project_schema.dump(project), 202
+
+    else:
+        return {'error': f"Project not found with id {id}"}, 404
